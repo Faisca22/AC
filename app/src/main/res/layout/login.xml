@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="150dp"
+        app:srcCompat="@drawable/ic_logo_dp" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Login">
+    </TextView>
+
+
+    <TextView
+        android:id="@+id/texto_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="usuario" />
+
+    <EditText
+        android:id="@+id/campo_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/texto_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="senha" />
+
+    <EditText
+        android:id="@+id/campo_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/botao_login"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="130dp"
+        android:layout_marginTop="20dp"
+        android:text="entrar"/>
+
+    <TextView
+        android:id="@+id/version_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity ="center"
+        android:layout_marginTop="250dp"
+        android:text = "vers_o_0_00">
+    </TextView>
+
+    <TextView
+        android:id="@+id/nome_empresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text ="androidtech"
+        android:layout_gravity="center">
+    </TextView>
+</LinearLayout>
