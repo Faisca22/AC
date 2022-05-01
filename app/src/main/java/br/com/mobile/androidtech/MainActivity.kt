@@ -22,25 +22,18 @@ class MainActivity : DebugActivity() {
         val valorSenha = campo_senha.text.toString()
         Toast.makeText(context, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
 
-
-        val intent = Intent(context, TelaInicialActivity::class.java)
-        val params = Bundle()
-        params.putString("usuario", valorUsuario)
-        params.putString("senha", valorSenha)
-        intent.putExtras(params)
-        startActivity(intent)
+        if (valorUsuario == "aluno" && valorSenha =="impacta"){
+            val intent = Intent(context, TelaInicialActivity::class.java)
+            val params = Bundle()
+            params.putString("usuario", valorUsuario)
+            params.putString("senha", valorSenha)
+            intent.putExtras(params)
+            startActivity(intent)
+        }
+        else{
+            campo_erro.text = "usuario e/ou senha incorreto"
+        }
     }
-
-
-
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 1) {
-//            val result = data?.getStringExtra("result")
-//            Toast.makeText(context, "$result", Toast.LENGTH_LONG).show()
-//        }
-//    }
    }
 
 

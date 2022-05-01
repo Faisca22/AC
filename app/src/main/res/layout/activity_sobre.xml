@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SobreActivity">
+    <include layout="@layout/toolbar"></include>
+    <TextView
+        android:id="@+id/versao_app"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Versão: 0.00"
+        android:layout_marginTop="70dp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/plataforma"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Plataforma: android"
+        android:layout_marginTop="95dp">
+    </TextView>
+
+    <TextView
+        android:id="@+id/sobre"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Sobre: Aplicativo para buscar informações sobre países "
+        android:layout_marginTop="120dp">
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
