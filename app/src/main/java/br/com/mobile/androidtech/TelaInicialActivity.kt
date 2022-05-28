@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_tela_inicial.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -26,10 +28,12 @@ import java.net.URL
 
 class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val context: Context get() = this
+    private var paises = listOf<Pais>()
+    private var REQUEST_CADASTRO = 1
+    private var REQUEST_REMOVE= 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_inicial)
-
 
         val args = intent.extras
         val usuario = args?.getString("usuario")
@@ -38,37 +42,37 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         Toast.makeText(context, "Nome do usuário: $usuario", Toast.LENGTH_LONG).show()
         Toast.makeText(context, "Senha: $senha", Toast.LENGTH_LONG).show()
 
-
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Tela Inicial"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         configuraMenuLateral()
-        recyclerPaises?.layoutManager = LinearLayoutManager(this)
+        recyclerPaises?.layoutManager = LinearLayoutManager(context)
         recyclerPaises?.itemAnimator = DefaultItemAnimator()
         recyclerPaises?.setHasFixedSize(true)
-
     }
-    private var paises = listOf<Pais>()
+
+    fun taskPaises(){
+        Thread{
+            this.paises = PaisesService.getPaises(context)
+            runOnUiThread{
+                recyclerPaises?.adapter = PaisesAdapter(this.paises) {onClickPais(it)}
+            }
+        }.start()
+    }
+
+
     override fun onResume() {
         super.onResume()
-        paises = PaisesService.getPaises()
-        recyclerPaises?.adapter = PaisesAdapter(paises) {onClickPais(it)}
-
+        taskPaises()
     }
-
-
-
     fun onClickPais(pais:Pais){
         Toast.makeText(this, "Clicou no ${pais.nome}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Clicou disciplina ${pais.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, PaisesActivity::class.java)
+        intent.putExtra("pais", pais)
+        startActivityForResult(intent, REQUEST_REMOVE)
     }
-
-
-
-
-
-
-
     private fun configuraMenuLateral() {
         var toogle =
             ActionBarDrawerToggle(this, layoutMenuLateral, toolbar, R.string.open, R.string.close)
@@ -76,10 +80,6 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         toogle.syncState()
         menu_lateral.setNavigationItemSelectedListener(this)
     }
-
-
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.nav_paises) {
@@ -143,5 +143,11 @@ class TelaInicialActivity : DebugActivity(), NavigationView.OnNavigationItemSele
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_CADASTRO || requestCode == REQUEST_REMOVE ) {
+            // atualizar lista de disciplinas
+            taskPaises()
+        }
+    }
 
 }

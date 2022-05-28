@@ -13,14 +13,31 @@ class MainActivity : DebugActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
 
-
         botao_login.setOnClickListener {onClickLogin() }
 
+         campo_usuario.setText(Prefs.getString("nome"))
+        campo_senha.setText(Prefs.getString("senha"))
+        lembrarSenha.isChecked = Prefs.getBoolean("lembrar")!!
+
+        var nomeusuario = Prefs.getString("nome")
+        texto_login.text = "Olá $nomeusuario"
     }
+
+
     fun onClickLogin(){
         val valorUsuario = campo_usuario.text.toString()
         val valorSenha = campo_senha.text.toString()
         Toast.makeText(context, "$valorUsuario : $valorSenha", Toast.LENGTH_LONG).show()
+
+
+        if (lembrarSenha.isChecked){
+            Prefs.setString("nome",valorUsuario)
+            Prefs.setString("senha",valorSenha)
+        }else{
+            Prefs.setString("nome","")
+            Prefs.setString("senha","")
+        }
+        Prefs.setBoolean("Lembrar", lembrarSenha.isChecked)
 
         if (valorUsuario == "aluno" && valorSenha =="impacta"){
             val intent = Intent(context, TelaInicialActivity::class.java)

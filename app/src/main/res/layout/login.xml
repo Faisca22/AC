@@ -22,6 +22,12 @@
         android:text="Login">
     </TextView>
 
+    <TextView
+        android:id="@+id/texto_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Faça seu login">
+    </TextView>
 
     <TextView
         android:id="@+id/texto_usuario"
@@ -48,6 +54,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/lembrarSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lembrar senha"/>
 
     <TextView
         android:id="@+id/campo_erro"
